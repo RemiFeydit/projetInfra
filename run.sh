@@ -9,3 +9,4 @@ chmod +x minecraft_server1_15.jar
 ufw allow 25565
 java -Xmx1024M -Xms1024M -jar minecraft_server1_15.jar -nogui
 sed -i 's/false/true/g' eula.txt
+java -Xmx1024M -Xms1024M -jar minecraft_server1_15.jar -nogui
