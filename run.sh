@@ -16,7 +16,7 @@ chmod +xrw ./changeVersion.sh
 chmod +x ./start.sh
 
 cd /var/www/minecraft/minecraftServer
-wget https://launcher.mojang.com/v1/objects/e9f105b3c5c7e85c7b445249a93362a22f62442d/server.jar -O /var/www/minecraft/minecraft_server1_15.jar
-chmod +x minecraft_server1_15.jar
+wget https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar
+chmod +x server.jar
 ufw allow 25565
 echo 'eula=true'>eula.txt
