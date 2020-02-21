@@ -19,4 +19,5 @@ cd /var/www/minecraft/minecraftServer
 wget https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar
 chmod +x server.jar
 ufw allow 25565
+echo $version>versionActuelle.txt
 echo 'eula=true'>eula.txt
