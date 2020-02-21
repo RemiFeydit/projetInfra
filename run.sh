@@ -1,6 +1,7 @@
 apt-get update && apt-get upgrade
-apt-get install default-jdk -y
-apt-get install apache2 -y
+apt-get install default-jdk
+apt-get install apache2
+apt-get install borgbackup
 ufw allow 'Apache'
 
 mkdir /var/www/minecraft
