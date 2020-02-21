@@ -20,4 +20,3 @@ wget https://launcher.mojang.com/v1/objects/e9f105b3c5c7e85c7b445249a93362a22f62
 chmod +x minecraft_server1_15.jar
 ufw allow 25565
 echo 'eula=true'>eula.txt
-java -Xmx1024M -Xms1024M -jar server.jar -nogui
