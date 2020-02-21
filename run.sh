@@ -6,6 +6,7 @@ ufw allow 'Apache'
 
 mkdir /var/www/minecraft
 mkdir /var/www/minecraft/minecraftServer
+mkdir /var/www/minecraft/backupMinecraft
 mkdir /var/www/minecraft/backupMinecraft/backup
 mv commandes /var/www/minecraft
 
