@@ -6,7 +6,7 @@ ufw allow 'Apache'
 apt-get install php7.3
 systemctl restart apache2
 
-mv web /var/www/mineacraft
+mv web /var/www/minecraft
 mkdir /var/www/minecraft/minecraftServer
 mkdir /var/www/minecraft/backupMinecraft
 mkdir /var/www/minecraft/backupMinecraft/backup
