@@ -3,7 +3,7 @@ apt-get install default-jdk
 apt-get install apache2
 apt-get install borgbackup
 ufw allow 'Apache'
-apt-get install php7.3
+apt-get install php
 sed -i 's+/var/www/html+/var/www/minecraft+g' 000-default.conf
 systemctl restart apache2
 
