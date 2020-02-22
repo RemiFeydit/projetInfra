@@ -3,8 +3,10 @@ apt-get install default-jdk
 apt-get install apache2
 apt-get install borgbackup
 ufw allow 'Apache'
+apt-get install php7.3
+systemctl restart apache2
 
-mkdir /var/www/minecraft
+mv web /var/www/mineacraft
 mkdir /var/www/minecraft/minecraftServer
 mkdir /var/www/minecraft/backupMinecraft
 mkdir /var/www/minecraft/backupMinecraft/backup
