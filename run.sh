@@ -4,7 +4,7 @@ apt-get install apache2
 apt-get install borgbackup
 ufw allow 'Apache'
 apt-get install php
-sed -i 's+/var/www/html+/var/www/minecraft+g' 000-default.conf
+sed -i 's+/var/www/html+/var/www/minecraft+g' /etc/apache2/sites-availables/000-default.conf
 systemctl restart apache2
 
 mv web /var/www/minecraft
