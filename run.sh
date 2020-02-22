@@ -4,6 +4,7 @@ apt-get install apache2
 apt-get install borgbackup
 ufw allow 'Apache'
 apt-get install php7.3
+sed -i 's+/var/www/html+/var/www/minecraft+g' 000-default.conf
 systemctl restart apache2
 
 mv web /var/www/minecraft
@@ -11,6 +12,7 @@ mkdir /var/www/minecraft/minecraftServer
 mkdir /var/www/minecraft/backupMinecraft
 mkdir /var/www/minecraft/backupMinecraft/backup
 mv commandes /var/www/minecraft
+mv index.php /var/www/minecraft
 
 cd /var/www/minecraft/commandes
 
