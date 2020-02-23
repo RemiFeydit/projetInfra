@@ -17,9 +17,9 @@
             <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="console.php">Console</a></li>
-                <li><a href="properties.php">Propriétés</a></li>
-                <li><a href="sauvegarde.php">Sauvegarde</a></li>
+                <li><a href="./pages/console.php">Console</a></li>
+                <li><a href="./pages/properties.php">Propriétés</a></li>
+                <li><a href="./pages/sauvegarde.php">Sauvegarde</a></li>
             </ul>
         </div>
     </nav>

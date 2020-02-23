@@ -67,12 +67,6 @@ if(!empty($_POST["hardcoreMod"])){
     $_POST["hardcoreMod"] = false;
 }
 
-if(!empty($_POST["advancement"])){
-    $_POST["advancement"] = true;
-}else{
-    $_POST["advancement"] = false;
-}
-
 if(!empty($_POST["enableFly"])){
     $_POST["enableFly"] = true;
 }else{
@@ -89,7 +83,6 @@ $pnj = $_POST["pnj"];
 $monsters = $_POST["monsters"];
 $animals = $_POST["animals"];
 $hardcoreMod = $_POST["hardcoreMod"];
-$advancement = $_POST["advancement"];
 $enableFly = $_POST["enableFly"];
 
 // shell_exec("./changePropertie.sh motd $motd");

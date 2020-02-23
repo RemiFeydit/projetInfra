@@ -20,7 +20,7 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="index.php">Home</a></li>
+                <li><a href="/var/www/minecraft/index.php">Home</a></li>
                 <li><a href="console.php">Console</a></li>
                 <li><a href="properties.php">Propriétés</a></li>
                 <li><a href="sauvegarde.php">Sauvegarde</a></li>
@@ -159,14 +159,6 @@
                                             <p>
                                                 <label>
                                                     <input type="checkbox" class="filled-in"
-                                                        name="advancement" id="advancement"/>
-                                                    <span class="white-text">Afficher les succès</span>
-                                                </label>
-                                            </p>
-
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" class="filled-in"
                                                         name="enableFly" id="enableFly"/>
                                                     <span class="white-text">Empêcher l'expulsion pour fly</span>
                                                 </label>
@@ -185,7 +177,7 @@
         </div>
 </body>
 <script>
-    switch (<?php echo $difficulty?>) {
+    switch ("<?php echo $difficulty?>") {
         case 0:
             document.getElementById("difficulty0").setAttribute("selected", 'motd');
             break;
@@ -198,19 +190,43 @@
         case 3:
             document.getElementById("difficulty3").setAttribute("selected", '');
             break;
-    }
-
-    switch (<?php echo $gamemode?>) {
-        case 0:
-            document.getElementById("gamemode0").setAttribute("selected", 'motd');
+        case "peaceful":
+            document.getElementById("gamemode0").setAttribute("selected", '');
             break;
-        case 1:
+        case "easy":
             document.getElementById("gamemode1").setAttribute("selected", '');
             break;
-        case 2:
+        case "normal":
             document.getElementById("gamemode2").setAttribute("selected", '');
             break;
-        case 3:
+        case "hard":
+            document.getElementById("gamemode3").setAttribute("selected", '');
+            break;
+    }
+
+    switch ("<?php echo $gamemode?>") {
+        case "0":
+            document.getElementById("gamemode0").setAttribute("selected", 'motd');
+            break;
+        case "1":
+            document.getElementById("gamemode1").setAttribute("selected", '');
+            break;
+        case "2":
+            document.getElementById("gamemode2").setAttribute("selected", '');
+            break;
+        case "3":
+            document.getElementById("gamemode3").setAttribute("selected", '');
+            break;
+        case "survival":
+            document.getElementById("gamemode0").setAttribute("selected", '');
+            break;
+        case "creative":
+            document.getElementById("gamemode1").setAttribute("selected", '');
+            break;
+        case "adventure":
+            document.getElementById("gamemode2").setAttribute("selected", '');
+            break;
+        case "spectator":
             document.getElementById("gamemode3").setAttribute("selected", '');
             break;
     }
@@ -239,10 +255,6 @@
         document.getElementById("hardcoreMod").setAttribute("checked", '');
     }
 
-    if(<?php echo $advancements?>){
-        document.getElementById("advancement").setAttribute("checked", '');
-    }
-
     if(<?php echo $onlineMode?>){
         document.getElementById("onlineMod").setAttribute("checked", '');
     }
@@ -262,13 +274,5 @@
     if(<?php echo $enableFly?>){
         document.getElementById("enableFly").setAttribute("checked", '');
     }
-
-    
-
-
-
-    
-
-    
 </script>
 </html>

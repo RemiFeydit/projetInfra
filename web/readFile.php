@@ -1,6 +1,5 @@
 <?php
-// Lit 14 caractères à partir du 21ème charactère
-$section = file_get_contents('../Server.properties', FALSE);
+$section = file_get_contents('/var/www/minecraft/minecraftServer/server.properties', FALSE);
 $lines = explode("\n", $section);
 
 
@@ -25,10 +24,6 @@ foreach ($lines as $key => $line) {
 
     if(startsWith($line, "allow-nether")){
         $nether = explode("=", $line)[1];
-    }
-
-    if(startsWith($line, "announce-player-achievements")){
-        $advancements = explode("=", $line)[1];
     }
 
     if(startsWith($line, "spawn-npcs")){
