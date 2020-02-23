@@ -1,9 +1,9 @@
 apt-get update && apt-get upgrade
-apt-get install default-jdk
-apt-get install apache2
-apt-get install borgbackup
+apt-get install default-jdk -y
+apt-get install apache2 -y
+apt-get install borgbackup -y
 ufw allow 'Apache'
-apt-get install php
+apt-get install php -y
 sed -i 's+/var/www/html+/var/www/minecraft+g' /etc/apache2/sites-available/000-default.conf
 systemctl restart apache2
 echo "www-data ALL=NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
