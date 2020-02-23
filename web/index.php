@@ -12,6 +12,11 @@
     <title>Home</title>
 </head>
 <body>
+<?php
+if($_GET['run']){
+   shell_exec("sudo /var/www/minecraft/commande/start.sh");
+}
+?>
 <nav>
         <div class="nav-wrapper">
             <a href="#" class="brand-logo">Logo</a>
@@ -29,7 +34,7 @@
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <form>
-    <a class="waves-effect waves-light btn-large"><i class="material-icons right">cloud</i>Démarrer le serveur</a>
+    <a class="waves-effect waves-light btn-large" href="?run=true"><i class="material-icons right">cloud</i>Démarrer le serveur</a>
 </form>
         </div>
       </div>

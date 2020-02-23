@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include '../readFile.php';?>
+<?php include '/var/www/minecraft/readFile.php';?>
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/var/www/minecraft/index.php">Home</a></li>
+                <li><a href="../index.php">Home</a></li>
                 <li><a href="console.php">Console</a></li>
                 <li><a href="properties.php">Propriétés</a></li>
                 <li><a href="sauvegarde.php">Sauvegarde</a></li>
