@@ -1,2 +1,21 @@
-sudo ufw allow 22
-sudo apt-get install openssh-server
+apt install git
+adduser git
+
+mkdir /home/git/.ssh/
+chown -R git: /home/git/.ssh/
+chmod 700 /home/git/.ssh/
+
+nano /home/git/.ssh/authorized_keys  (il faut y mettre la clée publique du client, pour en créer une : ssh-keygen -t rsa
+puis voir sa clée publique : cat /home/nomUtilisateur/.ssh/id_rsa.pub)
+
+ufw allow 22
+apt-get install openssh-server
+
+mkdir /home/git/nomDuDepotGit.git
+cd /home/git/nomDuDepotGit.git
+git init --bare
+chown -R git: /home/git/nomDuDepotGit.git
+
+
+Pour cloner le depot depuis le client : git clone git@192.168.62.4:/home/git/repoProjetInfra.git
+
