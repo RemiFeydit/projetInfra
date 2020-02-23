@@ -28,3 +28,4 @@ chmod +x server.jar
 ufw allow 25565
 echo '1.15.1'>versionActuelle.txt
 echo 'eula=true'>eula.txt
+/var/www/minecraft/commandes/start.sh
