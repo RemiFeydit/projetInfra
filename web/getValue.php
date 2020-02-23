@@ -72,6 +72,9 @@ if(!empty($_POST["enableFly"])){
 }else{
     $_POST["enableFly"] = false;
 }
+if(!is_numeric($slots) || !is_numeric($renderDistance)){
+    header('Location: ./pages/propriété.php');
+}
 
 $whitelist = $_POST["whitelist"];
 $onlineMod = $_POST["onlineMod"];
@@ -85,25 +88,25 @@ $animals = $_POST["animals"];
 $hardcoreMod = $_POST["hardcoreMod"];
 $enableFly = $_POST["enableFly"];
 
-// shell_exec("./changePropertie.sh motd $motd");
-// shell_exec("./changePropertie.sh max-players $slots");
-// shell_exec("./changePropertie.sh level-name $mapName");
-// shell_exec("./changePropertie.sh view-distance $renderDistance");
-// shell_exec("./changePropertie.sh difficulty $difficulty");
-// shell_exec("./changePropertie.sh gamemode $gamemode");
+shell_exec("sudo ./commandes/changeProperties.sh motd '$motd'");
+shell_exec("sudo ./commandes/changeProperties.sh max-players $slots");
+shell_exec("sudo ./commandes/changeProperties.sh level-name '$mapName'");
+shell_exec("sudo ./commandes/changeProperties.sh view-distance $renderDistance");
+shell_exec("sudo ./commandes/changeProperties.sh difficulty $difficulty");
+shell_exec("sudo ./commandes/changeProperties.sh gamemode $gamemode");
 
 
-// shell_exec("./changePropertie.sh white-list $whitelist");
-// shell_exec("./changePropertie.sh online-mode $onlineMode");
-// shell_exec("./changePropertie.sh generate-structures $structureGeneration");
-// shell_exec("./changePropertie.sh enable-command-block $commandeBlock");
-// shell_exec("./changePropertie.sh allow-nether $nether");
-// shell_exec("./changePropertie.sh allow-pvp $pvp");
-// shell_exec("./changePropertie.sh spawn-npcs $pnj");
-// shell_exec("./changePropertie.sh spawn-monsters $monsters");
-// shell_exec("./changePropertie.sh spawn-animals $animals");
-// shell_exec("./changePropertie.sh hardcore $hardcoreMode");
-// shell_exec("./changePropertie.sh announce-player-achievements $advancement");
-// shell_exec("./changeProperties.sh allow-flight $enableFly")
+shell_exec("sudo ./commandes/changeProperties.sh white-list $whitelist");
+shell_exec("sudo ./commandes/changeProperties.sh online-mode $onlineMode");
+shell_exec("sudo ./commandes/changeProperties.sh generate-structures $structureGeneration");
+shell_exec("sudo ./commandes/changeProperties.sh enable-command-block $commandeBlock");
+shell_exec("sudo ./commandes/changeProperties.sh allow-nether $nether");
+shell_exec("sudo ./commandes/changeProperties.sh allow-pvp $pvp");
+shell_exec("sudo ./commandes/changeProperties.sh spawn-npcs $pnj");
+shell_exec("sudo ./commandes/changeProperties.sh spawn-monsters $monsters");
+shell_exec("sudo ./commandes/changeProperties.sh spawn-animals $animals");
+shell_exec("sudo ./commandes/changeProperties.sh hardcore $hardcoreMode");
+shell_exec("sudo ./commandes/changeProperties.sh announce-player-achievements $advancement");
+shell_exec("sudo ./commandes/changeProperties.sh allow-flight $enableFly");
 
 ?>
