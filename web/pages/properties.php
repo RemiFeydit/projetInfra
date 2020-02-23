@@ -66,10 +66,10 @@
                                                 <label class="grey-darken-4-text active" for="renderDistance">Difficulté
                                                     :</label><br>
                                                 <select name="difficulty" class="browser-default">
-                                                    <option id="difficulty0" value="0">Paisible</option>
-                                                    <option id="difficulty1" value="1">Facile</option>
-                                                    <option id="difficulty2" value="2">Normal</option>
-                                                    <option id="difficulty3" value="3">Difficile</option>
+                                                    <option id="difficulty0" value="peaceful">Paisible</option>
+                                                    <option id="difficulty1" value="easy">Facile</option>
+                                                    <option id="difficulty2" value="normal">Normal</option>
+                                                    <option id="difficulty3" value="hard">Difficile</option>
                                                 </select>
                                                 
                                             </div>
@@ -79,10 +79,10 @@
                                                     jeu :
                                                     :</label><br>
                                                 <select name ="gamemode" class="browser-default">
-                                                    <option id="gamemode0" value="0">Survie</option>
-                                                    <option id="gamemode1"value="1">Créatif</option>
-                                                    <option id="gamemode2"value="2">Aventure</option>
-                                                    <option id="gamemode3"value="3">Spectateur</option>
+                                                    <option id="gamemode0" value="survival">Survie</option>
+                                                    <option id="gamemode1" value="creative">Créatif</option>
+                                                    <option id="gamemode2" value="adventure">Aventure</option>
+                                                    <option id="gamemode3" value="spectator">Spectateur</option>
                                                 </select>
                                                 
                                             </div>
@@ -178,45 +178,21 @@
 </body>
 <script>
     switch ("<?php echo $difficulty?>") {
-        case 0:
-            document.getElementById("difficulty0").setAttribute("selected", 'motd');
-            break;
-        case 1:
-            document.getElementById("difficulty1").setAttribute("selected", '');
-            break;
-        case 2:
-            document.getElementById("difficulty2").setAttribute("selected", '');
-            break;
-        case 3:
-            document.getElementById("difficulty3").setAttribute("selected", '');
-            break;
         case "peaceful":
-            document.getElementById("gamemode0").setAttribute("selected", '');
+            document.getElementById("difficulty0").setAttribute("selected", '');
             break;
         case "easy":
-            document.getElementById("gamemode1").setAttribute("selected", '');
+            document.getElementById("difficulty1").setAttribute("selected", '');
             break;
         case "normal":
-            document.getElementById("gamemode2").setAttribute("selected", '');
+            document.getElementById("difficulty2").setAttribute("selected", '');
             break;
         case "hard":
-            document.getElementById("gamemode3").setAttribute("selected", '');
+            document.getElementById("difficulty3").setAttribute("selected", '');
             break;
     }
 
     switch ("<?php echo $gamemode?>") {
-        case "0":
-            document.getElementById("gamemode0").setAttribute("selected", 'motd');
-            break;
-        case "1":
-            document.getElementById("gamemode1").setAttribute("selected", '');
-            break;
-        case "2":
-            document.getElementById("gamemode2").setAttribute("selected", '');
-            break;
-        case "3":
-            document.getElementById("gamemode3").setAttribute("selected", '');
-            break;
         case "survival":
             document.getElementById("gamemode0").setAttribute("selected", '');
             break;

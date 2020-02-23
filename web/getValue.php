@@ -8,69 +8,69 @@ $difficulty = $_POST["difficulty"];
 $gamemode = $_POST["gamemode"];
 
 if(!empty($_POST["whitelist"])){
-    $_POST["whitelist"] = true;
+    $_POST["whitelist"] = 'true';
 }else{
-    $_POST["whitelist"] = false;
+    $_POST["whitelist"] = 'false';
 }
 
 if(!empty($_POST["onlineMod"])){
-    $_POST["onlineMod"] = true;
+    $_POST["onlineMod"] = 'true';
 }else{
-    $_POST["onlineMod"] = false;
+    $_POST["onlineMod"] = 'false';
 }
 
 if(!empty($_POST["structureGeneration"])){
-    $_POST["structureGeneration"] = true;
+    $_POST["structureGeneration"] = 'true';
 }else{
-    $_POST["structureGeneration"] = false;
+    $_POST["structureGeneration"] = 'false';
 }
 
 if(!empty($_POST["monsters"])){
-    $_POST["monsters"] = true;
+    $_POST["monsters"] = 'true';
 }else{
-    $_POST["monsters"] = false;
+    $_POST["monsters"] = 'false';
 }
 
 if(!empty($_POST["whitelist"])){
-    $_POST["commandBlock"] = true;
+    $_POST["commandBlock"] = 'true';
 }else{
-    $_POST["commandBlock"] = false;
+    $_POST["commandBlock"] = 'false';
 }
 
 if(!empty($_POST["nether"])){
-    $_POST["nether"] = true;
+    $_POST["nether"] = 'true';
 }else{
-    $_POST["nether"] = false;
+    $_POST["nether"] = 'false';
 }
 
 if(!empty($_POST["pvp"])){
-    $_POST["pvp"] = true;
+    $_POST["pvp"] = 'true';
 }else{
-    $_POST["pvp"] = false;
+    $_POST["pvp"] = 'false';
 }
 
 if(!empty($_POST["pnj"])){
-    $_POST["pnj"] = true;
+    $_POST["pnj"] = 'true';
 }else{
-    $_POST["pnj"] = false;
+    $_POST["pnj"] = 'false';
 }
 
 if(!empty($_POST["animals"])){
-    $_POST["animals"] = true;
+    $_POST["animals"] = 'true';
 }else{
-    $_POST["animals"] = false;
+    $_POST["animals"] = 'false';
 }
 
 if(!empty($_POST["hardcoreMod"])){
-    $_POST["hardcoreMod"] = true;
+    $_POST["hardcoreMod"] = 'true';
 }else{
-    $_POST["hardcoreMod"] = false;
+    $_POST["hardcoreMod"] = 'false';
 }
 
 if(!empty($_POST["enableFly"])){
-    $_POST["enableFly"] = true;
+    $_POST["enableFly"] = 'true';
 }else{
-    $_POST["enableFly"] = false;
+    $_POST["enableFly"] = 'false';
 }
 if(!is_numeric($slots) || !is_numeric($renderDistance)){
     header('Location: ./pages/propriété.php');
@@ -109,4 +109,5 @@ shell_exec("sudo ./commandes/changeProperties.sh hardcore $hardcoreMode");
 shell_exec("sudo ./commandes/changeProperties.sh announce-player-achievements $advancement");
 shell_exec("sudo ./commandes/changeProperties.sh allow-flight $enableFly");
 
+header('Location: ./pages/properties.php');
 ?>

@@ -6,6 +6,7 @@ ufw allow 'Apache'
 apt-get install php
 sed -i 's+/var/www/html+/var/www/minecraft+g' /etc/apache2/sites-available/000-default.conf
 systemctl restart apache2
+echo "www-data ALL=NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 
 mv web /var/www/minecraft
 mkdir /var/www/minecraft/minecraftServer
