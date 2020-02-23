@@ -39,11 +39,11 @@ foreach ($lines as $key => $line) {
     }
 
     if(startsWith($line, "hardcore")){
-        $hardcoreMode = explode("=", $line)[1];
+        $hardcoreMod = explode("=", $line)[1];
     }
 
     if(startsWith($line, "online-mode")){
-        $onlineMode = explode("=", $line)[1];
+        $onlineMod = explode("=", $line)[1];
     }
 
     if(startsWith($line, "pvp")){
@@ -55,7 +55,7 @@ foreach ($lines as $key => $line) {
     }
 
     if(startsWith($line, "enable-command-block")){
-        $commandeBlock = explode("=", $line)[1];
+        $commandBlock = explode("=", $line)[1];
     }
 
     if(startsWith($line, "gamemode")){
@@ -78,4 +78,5 @@ foreach ($lines as $key => $line) {
         $enableFly = explode("=", $line)[1];
     }
 }
+
 ?>

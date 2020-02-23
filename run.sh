@@ -1,4 +1,4 @@
-apt-get update && apt-get upgrade
+apt-get update && apt-get upgrade -y
 apt-get install default-jdk -y
 apt-get install apache2 -y
 apt-get install borgbackup -y

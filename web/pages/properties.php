@@ -227,20 +227,16 @@
         document.getElementById("monsters").setAttribute("checked", '');
     }
 
-    if(<?php echo $hardcoreMode?>){
+    if(<?php echo $hardcoreMod?>){
         document.getElementById("hardcoreMod").setAttribute("checked", '');
     }
 
-    if(<?php echo $onlineMode?>){
+    if(<?php echo $onlineMod?>){
         document.getElementById("onlineMod").setAttribute("checked", '');
     }
 
     if(<?php echo $nether?>){
         document.getElementById("nether").setAttribute("checked", '');
-    }
-
-    if(<?php echo $commandeBlock?>){
-        document.getElementById("commandBlock").setAttribute("checked", '');
     }
 
     if(<?php echo $animals?>){
@@ -249,6 +245,10 @@
 
     if(<?php echo $enableFly?>){
         document.getElementById("enableFly").setAttribute("checked", '');
+    }
+
+    if(<?php echo $commandBlock?>){
+        document.getElementById("commandBlock").setAttribute("checked", '');
     }
 </script>
 </html>

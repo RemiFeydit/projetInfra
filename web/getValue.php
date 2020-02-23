@@ -31,12 +31,6 @@ if(!empty($_POST["monsters"])){
     $_POST["monsters"] = 'false';
 }
 
-if(!empty($_POST["whitelist"])){
-    $_POST["commandBlock"] = 'true';
-}else{
-    $_POST["commandBlock"] = 'false';
-}
-
 if(!empty($_POST["nether"])){
     $_POST["nether"] = 'true';
 }else{
@@ -72,6 +66,13 @@ if(!empty($_POST["enableFly"])){
 }else{
     $_POST["enableFly"] = 'false';
 }
+
+if(!empty($_POST["commandBlock"])){
+   $_POST["commandBlock"] = 'true';
+}else{
+   $_POST["commandBlock"] = 'false';
+}
+
 if(!is_numeric($slots) || !is_numeric($renderDistance)){
     header('Location: ./pages/propriété.php');
 }
@@ -79,7 +80,6 @@ if(!is_numeric($slots) || !is_numeric($renderDistance)){
 $whitelist = $_POST["whitelist"];
 $onlineMod = $_POST["onlineMod"];
 $structureGeneration = $_POST["structureGeneration"];
-$commandBlock = $_POST["commandBlock"];
 $nether = $_POST["nether"];
 $pvp = $_POST["pvp"];
 $pnj = $_POST["pnj"];
@@ -87,6 +87,7 @@ $monsters = $_POST["monsters"];
 $animals = $_POST["animals"];
 $hardcoreMod = $_POST["hardcoreMod"];
 $enableFly = $_POST["enableFly"];
+$commandBlock = $_POST["commandBlock"];
 
 shell_exec("sudo ./commandes/changeProperties.sh motd '$motd'");
 shell_exec("sudo ./commandes/changeProperties.sh max-players $slots");
@@ -95,18 +96,16 @@ shell_exec("sudo ./commandes/changeProperties.sh view-distance $renderDistance")
 shell_exec("sudo ./commandes/changeProperties.sh difficulty $difficulty");
 shell_exec("sudo ./commandes/changeProperties.sh gamemode $gamemode");
 
-
+shell_exec("sudo ./commandes/changeProperties.sh enable-command-block $commandBlock");
 shell_exec("sudo ./commandes/changeProperties.sh white-list $whitelist");
-shell_exec("sudo ./commandes/changeProperties.sh online-mode $onlineMode");
+shell_exec("sudo ./commandes/changeProperties.sh online-mode $onlineMod");
 shell_exec("sudo ./commandes/changeProperties.sh generate-structures $structureGeneration");
-shell_exec("sudo ./commandes/changeProperties.sh enable-command-block $commandeBlock");
 shell_exec("sudo ./commandes/changeProperties.sh allow-nether $nether");
-shell_exec("sudo ./commandes/changeProperties.sh allow-pvp $pvp");
+shell_exec("sudo ./commandes/changeProperties.sh pvp $pvp");
 shell_exec("sudo ./commandes/changeProperties.sh spawn-npcs $pnj");
 shell_exec("sudo ./commandes/changeProperties.sh spawn-monsters $monsters");
 shell_exec("sudo ./commandes/changeProperties.sh spawn-animals $animals");
-shell_exec("sudo ./commandes/changeProperties.sh hardcore $hardcoreMode");
-shell_exec("sudo ./commandes/changeProperties.sh announce-player-achievements $advancement");
+shell_exec("sudo ./commandes/changeProperties.sh hardcore $hardcoreMod");
 shell_exec("sudo ./commandes/changeProperties.sh allow-flight $enableFly");
 
 header('Location: ./pages/properties.php');
