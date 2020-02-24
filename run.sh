@@ -27,5 +27,6 @@ wget https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0c
 chmod +x server.jar
 ufw allow 25565
 echo '1.15.1'>versionActuelle.txt
-echo 'eula=true'>eula.txt
 /var/www/minecraft/commandes/start.sh
+sed -i 's/false/true/g' eula.txt
+
