@@ -29,4 +29,6 @@ ufw allow 25565
 echo '1.15.1'>versionActuelle.txt
 /var/www/minecraft/commandes/start.sh
 sed -i 's/false/true/g' eula.txt
+sed -i 's/enable-rcon=false/enable-rcon=false/g' server.properties
+sed -i 's/rcon.password=/rcon.password=azerty/g' server.properties
 
