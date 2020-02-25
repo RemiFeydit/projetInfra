@@ -3,7 +3,7 @@ adduser git
 
 mkdir /home/git/.ssh/
 chown git: /home/git/.ssh/
-chmod 755 ~/.ssh
+chmod 755 /home/git/.ssh
 
 
 nano /home/git/.ssh/authorized_keys puis chmod 644 ~/.ssh/authorized_keys  (il faut y mettre la clée publique du client, pour en créer une : ssh-keygen -t rsa
