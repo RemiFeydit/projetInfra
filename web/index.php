@@ -14,12 +14,14 @@
 <body>
 <?php
 if($_GET['run']){
-   shell_exec("sudo /var/www/minecraft/commande/start.sh");
+  shell_exec('sudo /var/www/minecraft/commandes/start.sh');
+
+  header('Location: ./pages/console.php');
 }
 ?>
 <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="./pages/console.php">Console</a></li>
@@ -34,11 +36,27 @@ if($_GET['run']){
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <form>
-    <a class="waves-effect waves-light btn-large" href="?run=true"><i class="material-icons right">cloud</i>Démarrer le serveur</a>
+    <a class="waves-effect waves-light btn-large" id="btnServeur" href="?run=true"><i class="material-icons right">power</i>Démarrer le serveur</a>
 </form>
+<p id='etatServ'></p>
         </div>
       </div>
     </div>
   </div>
 </body>
+<?php
+
+$isOn = shell_exec('ss -tunlp | grep 25565');
+$rconisOn = shell_exec('ss -tunlp | grep 25575');
+
+if($isOn != '' && $rconisOn != ''){
+  echo '<script> document.getElementById("btnServeur").setAttribute("class", "waves-effect waves-light btn-large disabled")</script>';
+  echo '<script> document.getElementById("etatServ").innerText = "Le serveur est démarré"</script>';
+}else if($isOn != '' && $rconisOn == ''){
+  echo '<script> document.getElementById("btnServeur").setAttribute("class", "waves-effect waves-light btn-large disabled")</script>';
+  echo '<script> document.getElementById("etatServ").innerText = "Le serveur est en cours de démarrage"</script>';
+}else{
+  echo '<script> document.getElementById("etatServ").innerText = "Le serveur est éteint"</script>';
+}
+?>
 </html>

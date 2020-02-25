@@ -14,7 +14,7 @@
 <body>
 <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
+            <a href="#" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="console.php">Console</a></li>
@@ -25,31 +25,72 @@
     </nav>
     <div class="row">
     <?php
-    $files = array_diff(scandir('/var/www/minecraft/backupMinecraft/backup'), array('..', '.'));
-    foreach($files as $key => $file) {
-    ?>
-    <div class="col s12 m6">
+    if(!file_exists('/var/www/minecraft/backupMinecraft/listeBackup.txt')){
+      ?>
+      <div class="col s12 m12">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">Nom du fichier :</span>
-          <a class="btn disabled"><?=$file?></a>
-          <p><span class="card-title">Date :</span></p>
-          <a class="btn disabled"><?= date("F d Y H:i:s.", filemtime('/var/www/minecraft/backupMinecraft/backup/'.$file));?></a>
+          <span class="card-title">Il n' y a pas de sauvegarde</span>
         </div>
-        <div class="card-action">
-        <button class="btn waves-effect waves-light blue" type="submit" name="action">Restore
-    <i class="material-icons right">restore</i>
-  </button>
-  <button class="btn waves-effect waves-light red" type="submit" name="action">Delete
-    <i class="material-icons right">delete</i>
-  </button>
         </div>
       </div>
     </div>
-    <?php } ?>
+    <?php
+    }else{
+      $content = file_get_contents('/var/www/minecraft/backupMinecraft/listeBackup.txt', FALSE);
+      if($content == ''){
+        shell_exec('sudo rm /var/www/minecraft/backupMinecraft/listeBackup.txt');
+        ?>
+        <div class="col s12 m12">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Il n' y a pas de sauvegarde</span>
+        </div>
+        </div>
+      </div>
+    </div>
+    <?php
+      }else{
+        $files = explode("\n", $content);
+        foreach($files as $key => $file) {
+          $fileName = explode("_", $file);
+          $dateEntiere = explode("_", $file)[1];
+          $date = str_replace("-", "/", explode(".", $dateEntiere)[1]);
+          $heure = str_replace("-", "h", explode(".", $dateEntiere)[0]);
+          $fileName = $fileName[0] . "_" . $fileName[1];
+          
+        ?>
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Nom du fichier :</span>
+            <a class="btn disabled"><?=$file?></a>
+            <p><span class="card-title">Date :</span></p>
+            <a class="btn disabled"><?=$date . " " . $heure; ?></a>
+          </div>
+          <div class="card-action">
+          <form>
+      <a class="waves-effect waves-light btn blue" href="?restore=<?=$fileName ?>"><i class="material-icons right">restore</i>Restaurer</a>
+      <a class="waves-effect waves-light btn red" href="?delete=<?=$file ?>"><i class="material-icons right">delete</i>Supprimer</a>
+  </form>
+          </div>
+        </div>
+      </div>
+  <?php } 
+      }
+  }
+  ?>
   </div>
-  
-    
+<?php
+
+if(!empty($_GET['restore'])){
+  echo 'restore '. $_GET['restore'];
+}
+
+if(!empty($_GET['delete'])){
+  echo 'delete ' . $_GET['delete'];
+}
+?>   
 </body>
 </html>
             
