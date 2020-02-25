@@ -31,18 +31,22 @@ case $action in
         cd ../minecraftServer
         case $elementSauvegarde in
             world)
-                borg delete ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt) 
-                borg create ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt) $(grep level-name ./server.properties | cut -d'=' -f2)
+                borg delete ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt) 
+                borg create ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt) $(grep level-name ./server.properties | cut -d'=' -f2)
+				echo "$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)>>../backupMinecraft/listeBackup.txt
                 ;;
 	    	server.properties)
-                borg delete ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt) 
-                borg create ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt)  server.properties
+                borg delete ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt) 
+                borg create ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)  server.properties
+				echo "$nomSauvegarde"_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)>>../backupMinecraft/listeBackup.txt
                 ;;
              all)
-                borg delete ../backupMinecraft/backup::$(grep level-name ./server.properties | cut -d'=' -f2)_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt) 
-                borg create ../backupMinecraft/backup::$(grep level-name ./server.properties | cut -d'=' -f2)_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt)  $(grep level-name ./server.properties | cut -d'=' -f2)
-                borg delete ../backupMinecraft/backup::server.properties_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt) 
-                borg create ../backupMinecraft/backup::server.properties_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt)  server.properties
+                borg delete ../backupMinecraft/backup::$(grep level-name ./server.properties | cut -d'=' -f2)_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt) 
+                borg create ../backupMinecraft/backup::$(grep level-name ./server.properties | cut -d'=' -f2)_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)  $(grep level-name ./server.properties | cut -d'=' -f2)
+				echo $(grep level-name ./server.properties | cut -d'=' -f2)_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)>>../backupMinecraft/listeBackup.txt
+                borg delete ../backupMinecraft/backup::server.properties_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt) 
+                borg create ../backupMinecraft/backup::server.properties_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)  server.properties
+				echo server.properties_`date "+%H-%M.%d-%m-%Y"`_$(cat versionActuelle.txt)>>../backupMinecraft/listeBackup.txt
                 ;; 
              *)
                 echo "Erreur: seul les world et server.properties sont sauvegardés."
@@ -59,10 +63,10 @@ case $action in
         cd ../minecraftServer
         case $elementSauvegarde in
             world)
-                borg extract ../backupMinecraft/backup::"$nomSauvegarde"_"$datebackup"_$(cat versionActuelle.txt) 
+                borg extract ../backupMinecraft/backup::"$nomSauvegarde"_$(cat versionActuelle.txt) 
                 ;;
 		server.properties)
-                borg extract ../backupMinecraft/backup::"$nomSauvegarde"_"$datebackup"_$(cat versionActuelle.txt) 
+                borg extract ../backupMinecraft/backup::"$nomSauvegarde"_$(cat versionActuelle.txt) 
                 ;;
              *)
                 echo "Erreur: seul les world et server.properties sont sauvegardés."
@@ -75,11 +79,15 @@ case $action in
             then
             echo Suppression en cours...
             borg $action ../backupMinecraft/backup
+			cd ../backupMinecraft
+			rm -rf listeBackup.txt
             echo Tous vos backup ont bien été supprimés !
         else
             echo Suppression en cours...
-            borg $action ../backupMinecraft/backup::"$nomSauvegarde"_`date "+%d\%m\%Y"`_$(cat versionActuelle.txt)
-            echo Votre backup \"$nomSauvegarde\" a bien été supprimé !
+            borg $action ../backupMinecraft/backup::"$elementSauvegarde"
+		sed -i "/$elementSauvegarde/d" ../backupMinecraft/listeBackup.txt
+		echo "$elementSauvegarde"
+            echo Votre backup \"$elementSauvegarde\" a bien été supprimé !
         fi
         ;; 
     *)
