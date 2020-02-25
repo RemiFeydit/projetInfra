@@ -2,7 +2,7 @@ apt install git
 adduser git
 
 mkdir /home/git/.ssh/
-chown -R git: /home/git/.ssh/
+chown git: /home/git/.ssh/
 chmod 755 ~/.ssh
 
 
