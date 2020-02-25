@@ -9,12 +9,12 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Home</title>
+    <title>Sauvegarde</title>
 </head>
 <body>
 <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Minecrouft</a>
+            <a href="../index.php" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="console.php">Console</a></li>
@@ -27,11 +27,32 @@
     <?php
     if(!file_exists('/var/www/minecraft/backupMinecraft/listeBackup.txt')){
       ?>
-      <div class="col s12 m12">
+      <div class="col s12 m6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">Il n' y a pas de sauvegarde</span>
+          <span class="card-title">Il n' y a pas de sauvegarde
+          </span>
         </div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sauvegarde :</span>
+            <label class="white-text">Que voulez-vous sauvegarder ?</label>
+            <form method="post" action="">
+  <select class="browser-default" name ="toSave">
+    <option value="all">Le monde et les propriétés</option>
+    <option value="world">Le monde</option>
+    <option value="properties">Les propriétés</option>
+  </select>
+        <div class="input-field">
+        <label class="white-text">Nom de la sauvegarde ?</label>
+          <input class="white-text" name="saveName" id="saveName" type="text" class="validate" value="world">
+        </div>
+      <button class="btn waves-effect waves-light" type="submit" name="submit" value='submit'>Sauvegarder<i class="material-icons right">save</i>
+      </button>
+  </form>
         </div>
       </div>
     </div>
@@ -41,7 +62,7 @@
       if($content == ''){
         shell_exec('sudo rm /var/www/minecraft/backupMinecraft/listeBackup.txt');
         ?>
-        <div class="col s12 m12">
+    <div class="col s12 m16">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <span class="card-title">Il n' y a pas de sauvegarde</span>
@@ -49,8 +70,52 @@
         </div>
       </div>
     </div>
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sauvegarde :</span>
+            <label class="white-text">Que voulez-vous sauvegarder ?</label>
+            <form method="post" action="">
+  <select class="browser-default" name ="toSave">
+    <option value="all">Le monde et les propriétés</option>
+    <option value="world">Le monde</option>
+    <option value="server.properties">Les propriétés</option>
+  </select>
+        <div class="input-field">
+        <label class="white-text">Nom de la sauvegarde ?</label>
+          <input class="white-text" name="saveName" id="saveName" type="text" class="validate" value="world">
+        </div>
+      <button class="btn waves-effect waves-light" type="submit" name="submit" value='submit'>Sauvegarder<i class="material-icons right">save</i>
+      </button>
+  </form>
+        </div>
+      </div>
+    </div>
     <?php
       }else{
+        ?>
+        <div class="col s12 m12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sauvegarde :</span>
+            <label class="white-text">Que voulez-vous sauvegarder ?</label>
+            <form method="post" action="">
+  <select class="browser-default" name ="toSave">
+    <option value="all">Le monde et les propriétés</option>
+    <option value="world">Le monde</option>
+    <option value="properties">Les propriétés</option>
+  </select>
+        <div class="input-field">
+        <label class="white-text">Nom de la sauvegarde ?</label>
+          <input class="white-text" name="saveName" id="saveName" type="text" class="validate" value="world">
+        </div>
+      <button class="btn waves-effect waves-light" type="submit" name="submit" value='submit'>Sauvegarder<i class="material-icons right">save</i>
+      </button>
+  </form>
+        </div>
+      </div>
+    </div>
+    <?php
         $files = explode("\n", $content);
         foreach($files as $key => $file) {
           $fileName = explode("_", $file);
@@ -60,6 +125,7 @@
           $fileName = $fileName[0] . "_" . $fileName[1];
           
         ?>
+
       <div class="col s12 m6">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
@@ -89,6 +155,14 @@ if(!empty($_GET['restore'])){
 
 if(!empty($_GET['delete'])){
   echo 'delete ' . $_GET['delete'];
+}
+
+if(isset($_POST['submit']) && $_POST['saveName'] == ""){
+  echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde"); </script>';
+}else if ($_POST['submit'] && strpos($_POST['saveName'], " ") == 0){
+  echo $_POST['toSave'] . ' ' . $_POST['saveName'];
+}else if ($_POST['submit'] && $_POST['saveName'] == ""){
+  echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde (sans espaces)"); </script>';
 }
 ?>   
 </body>

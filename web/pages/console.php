@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Minecraft RCON</title>
+    <title>Console</title>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <script type="text/javascript" src="static/js/jquery-1.12.0.min.js"></script>
@@ -23,7 +23,7 @@
 <body>
 <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Minecrouft</a>
+            <a href="../index.php" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="./console.php">Console</a></li>

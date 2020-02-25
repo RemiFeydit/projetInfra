@@ -21,7 +21,7 @@ if($_GET['run']){
 ?>
 <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Minecrouft</a>
+            <a href="./index.php" class="brand-logo">Minecrouft</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="./pages/console.php">Console</a></li>
@@ -32,13 +32,43 @@ if($_GET['run']){
     </nav>
 
     <div class="row">
-    <div class="col s12 m12">
+    <div class="col s12 m6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <form>
     <a class="waves-effect waves-light btn-large" id="btnServeur" href="?run=true"><i class="material-icons right">power</i>Démarrer le serveur</a>
 </form>
 <p id='etatServ'></p>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Changement de version :</span>
+            <label class="white-text">Quelle version voulez-vous utiliser ?</label>
+            <form method="post" action="">
+  <select class="browser-default" name ="version">
+  <?php
+  $section = file_get_contents('/var/www/minecraft/commandes/listeVersion.txt', FALSE);
+  $lines = explode("\n", $section);
+  var_dump($section);
+  foreach ($lines as $key => $line) {
+    $line = explode("=", $line);
+?>
+    <option value="<?= $line[0] ?>"><?= $line[0]?></option>
+<?php } ?> 
+
+  </select>
+  <p><br>
+  <label>
+    <input type="checkbox" class="filled-in" name="saveBeforeChangeV" id="saveBeforeChangeV"/>
+    <span class="white-text">Sauvegarde du monde avant le changement de version ?</span>
+  </label>
+  </p><br>
+      <button class="btn waves-effect waves-light" type="submit" name="submit" value='submit'>Changer de version<i class="material-icons right">send</i>
+      </button>
+  </form>
         </div>
       </div>
     </div>
@@ -58,5 +88,19 @@ if($isOn != '' && $rconisOn != ''){
 }else{
   echo '<script> document.getElementById("etatServ").innerText = "Le serveur est éteint"</script>';
 }
+
+
+if(!empty($_POST["saveBeforeChangeV"])){
+  $_POST["saveBeforeChangeV"] = true;
+}else{
+  $_POST["saveBeforeChangeV"] = false;
+}
+
+if($_POST['submit'] && $_POST["saveBeforeChangeV"]){
+  echo "save avant changement de version vers ". $_POST["version"];
+}else if($_POST['submit'] && !$_POST["saveBeforeChangeV"]){
+  echo "pas de save avant changement de version vers ". $_POST["version"];
+}
+
 ?>
 </html>
