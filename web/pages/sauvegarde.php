@@ -9,7 +9,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Sauvegarde</title>
+    <title>Home</title>
 </head>
 <body>
 <nav>
@@ -156,13 +156,13 @@ if(!empty($_GET['restore'])){
 if(!empty($_GET['delete'])){
   echo 'delete ' . $_GET['delete'];
 }
-
+echo strpos($_POST['saveName'], " ");
 if(isset($_POST['submit']) && $_POST['saveName'] == ""){
   echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde"); </script>';
-}else if ($_POST['submit'] && strpos($_POST['saveName'], " ") == 0){
-  echo $_POST['toSave'] . ' ' . $_POST['saveName'];
-}else if ($_POST['submit'] && $_POST['saveName'] == ""){
+}else if ($_POST['submit'] && strpos($_POST['saveName'], " ") !== false){
   echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde (sans espaces)"); </script>';
+}else if ($_POST['submit']){
+  echo $_POST['toSave'] . ' ' . $_POST['saveName'];
 }
 ?>   
 </body>
