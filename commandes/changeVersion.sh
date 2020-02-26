@@ -13,7 +13,7 @@ function start {
 
         if test $save == "true"
             then
-            ./backup.sh save all
+            /var/www/minecraft/commandes/backup.sh save all
         fi
 
         rm -rf /var/www/minecraft/minecraftServer
