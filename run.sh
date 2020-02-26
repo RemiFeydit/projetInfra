@@ -27,8 +27,4 @@ wget https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0c
 chmod +x server.jar
 ufw allow 25565
 echo '1.15.1'>versionActuelle.txt
-/var/www/minecraft/commandes/start.sh
-sed -i 's/false/true/g' eula.txt
-sed -i 's/enable-rcon=false/enable-rcon=true/g' server.properties
-sed -i 's/rcon.password=/rcon.password=azerty/g' server.properties
-
+java -Xmx1024M -Xms1024M -jar server.jar -nogui
