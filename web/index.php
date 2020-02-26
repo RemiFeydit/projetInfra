@@ -97,9 +97,10 @@ if(!empty($_POST["saveBeforeChangeV"])){
 }
 
 if($_POST['submit'] && $_POST["saveBeforeChangeV"]){
-  echo "save avant changement de version vers ". $_POST["version"];
+	shell_exec('echo Y | sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"] . ' true');
+	echo $monDebug;
 }else if($_POST['submit'] && !$_POST["saveBeforeChangeV"]){
-  echo "pas de save avant changement de version vers ". $_POST["version"];
+  shell_exec('sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"]);
 }
 
 ?>
