@@ -33,7 +33,7 @@ Concernant le git, nous n'avons pas réussis à le finir.
 
 ## Utilisation du projet
 
-Ouvrez une page web à l'adresse localhost.  
+Ouvrez votre navigateur à l'adresse localhost si vous lancez la page web depuis le serveur, ou alors à l'adresse du serveur si vous l'ouvrez depuis votre client (plus logique...).
 Vous allez atterir à l'accueil permettant de lancer le serveur ou de changer de version.  
 Cliquez sur lancer le serveur, cela va vous rediriger vers une autre page contenant la console minecraft. Il faut attendre un petit moment pour que la console soit fonctionnelle, le temps que le serveur minecraft se soit bien lancé.  
   
