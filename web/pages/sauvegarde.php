@@ -150,11 +150,13 @@
 <?php
 
 if(!empty($_GET['restore'])){
-  echo 'restore '. $_GET['restore'];
+	putenv('LANG=en_US.UTF-8');
+  shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh restore '. $_GET['restore']);
+	echo $monDebug;
 }
 
 if(!empty($_GET['delete'])){
-  echo 'delete ' . $_GET['delete'];
+  shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh delete ' . $_GET['delete']);
 }
 echo strpos($_POST['saveName'], " ");
 if(isset($_POST['submit']) && $_POST['saveName'] == ""){
@@ -162,7 +164,7 @@ if(isset($_POST['submit']) && $_POST['saveName'] == ""){
 }else if ($_POST['submit'] && strpos($_POST['saveName'], " ") !== false){
   echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde (sans espaces)"); </script>';
 }else if ($_POST['submit']){
-  echo $_POST['toSave'] . ' ' . $_POST['saveName'];
+	shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh save ' . $_POST['toSave'] . ' ' . $_POST['saveName']);
 }
 ?>   
 </body>
