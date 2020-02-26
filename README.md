@@ -32,7 +32,7 @@ Tous les fichiers nécessaire ce trouvent dans `/var/www/minecraft`.
 ## Utilisation du projet
 
 Ouvrez une page web à l'adresse localhost.  
-Vous allez atterir à l'accueil permettant de lancer le serveur ou de changer de version.
+Vous allez atterir à l'accueil permettant de lancer le serveur ou de changer de version.  
 Cliquez sur lancer le serveur, cela va vous rediriger vers une autre page contenant la console minecraft. Il faut attendre un petit moment pour que la console soit fonctionnelle, le temps que le serveur minecraft se soit bien lancé.  
   
 Maintenant que le serveur minecraft est lancé vous pouvez sur votre client lancer minecraft (vérifiez que vous avez bien la même version que celle du serveur).
