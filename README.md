@@ -29,6 +29,8 @@ Une fois que le script a fini de s'exécuter, l'installation est terminé.
 
 Tous les fichiers nécessaire ce trouvent dans `/var/www/minecraft`.
 
+Concernant le git, nous n'avons pas réussis à le finir.
+
 ## Utilisation du projet
 
 Ouvrez une page web à l'adresse localhost.  
