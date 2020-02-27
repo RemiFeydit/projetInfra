@@ -9,7 +9,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Home</title>
+    <title>Sauvegarde</title>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAraKEAF3XCAAi/XQAcoz4AHL1UADGtawAWhzMAIet/AHeAhwAQtToAHutTAC6AQgAvzFcANpxQAEtQVAAOWZYAAzlrAAp9QABIz3cAILpoADRuowArq2cAOsJbAB/bkwAi8msAVNZ0ACvMUwA6plUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPDwAADxAADwEUFA8IFA8PDxAPDwAAAA8QAQ8QDxAPEAEQDwEAAA8UDw8QDxQUDw8PDw8PAQEPEBQPFBQBDw4AAA8QAA8QAA8PFBQBDxQQAQEPAAAIDwAADwEBDwEUDw8PDwEBAAAAABAPDxAQDw8AAA8PDxAPAA8PFA8UDxAAEAAADw8AAAEPAQEUFA8PAQ8BAQ8ADwABEA8PCA8PARAPDxAPDw8BDxAAAA8UFBAQEBcQDxQQDxQPFwEQFA8PEBAEGQ8TGQ8QEgUQBRAFEBcVEwIVAhUXFRMTFRcRFxMGGAQSEhcXFwITEQcVFwUHGRYbGxsNCw0aGhoDAwwKCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" rel="icon" type="image/x-icon" />
 </head>
 <body>
 <nav>
@@ -25,6 +26,22 @@
     </nav>
     <div class="row">
     <?php
+    if(!empty($_GET['restore'])){
+      putenv('LANG=en_US.UTF-8');
+      shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh restore '. $_GET['restore']);
+      echo $monDebug;
+    }
+    
+    if(!empty($_GET['delete'])){
+      shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh delete ' . $_GET['delete']);
+    }
+    if(isset($_POST['submit']) && $_POST['saveName'] == ""){
+      echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde"); </script>';
+    }else if ($_POST['submit'] && strpos($_POST['saveName'], " ") !== false){
+      echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde (sans espaces)"); </script>';
+    }else if ($_POST['submit']){
+      shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh save ' . $_POST['toSave'] . ' ' . $_POST['saveName']);
+    }
     if(!file_exists('/var/www/minecraft/backupMinecraft/listeBackup.txt')){
       ?>
       <div class="col s12 m6">
@@ -62,15 +79,15 @@
       if($content == ''){
         shell_exec('sudo rm /var/www/minecraft/backupMinecraft/listeBackup.txt');
         ?>
-    <div class="col s12 m16">
+   <div class="col s12 m6">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
-          <span class="card-title">Il n' y a pas de sauvegarde</span>
+          <span class="card-title">Il n' y a pas de sauvegarde
+          </span>
         </div>
         </div>
       </div>
-    </div>
-    <div class="col s12 m6">
+      <div class="col s12 m6">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
             <span class="card-title">Sauvegarde :</span>
@@ -79,7 +96,7 @@
   <select class="browser-default" name ="toSave">
     <option value="all">Le monde et les propriétés</option>
     <option value="world">Le monde</option>
-    <option value="server.properties">Les propriétés</option>
+    <option value="properties">Les propriétés</option>
   </select>
         <div class="input-field">
         <label class="white-text">Nom de la sauvegarde ?</label>
@@ -118,11 +135,12 @@
     <?php
         $files = explode("\n", $content);
         foreach($files as $key => $file) {
-          $fileName = explode("_", $file);
-          $dateEntiere = explode("_", $file)[1];
-          $date = str_replace("-", "/", explode(".", $dateEntiere)[1]);
-          $heure = str_replace("-", "h", explode(".", $dateEntiere)[0]);
-          $fileName = $fileName[0] . "_" . $fileName[1];
+	  if($file != ""){
+            $fileName = explode("_", $file);
+            $dateEntiere = explode("_", $file)[1];
+            $date = str_replace("-", "/", explode(".", $dateEntiere)[1]);
+            $heure = str_replace("-", "h", explode(".", $dateEntiere)[0]);
+            $fileName = $fileName[0] . "_" . $fileName[1];
           
         ?>
 
@@ -133,6 +151,8 @@
             <a class="btn disabled"><?=$file?></a>
             <p><span class="card-title">Date :</span></p>
             <a class="btn disabled"><?=$date . " " . $heure; ?></a>
+            <p><span class="card-title">Version :</span></p>
+            <a class="btn disabled"><?=explode("_", $file)[2] ?></a>
           </div>
           <div class="card-action">
           <form>
@@ -142,30 +162,15 @@
           </div>
         </div>
       </div>
-  <?php } 
+  <?php }
+         }
       }
   }
   ?>
   </div>
 <?php
 
-if(!empty($_GET['restore'])){
-	putenv('LANG=en_US.UTF-8');
-  shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh restore '. $_GET['restore']);
-	echo $monDebug;
-}
 
-if(!empty($_GET['delete'])){
-  shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh delete ' . $_GET['delete']);
-}
-echo strpos($_POST['saveName'], " ");
-if(isset($_POST['submit']) && $_POST['saveName'] == ""){
-  echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde"); </script>';
-}else if ($_POST['submit'] && strpos($_POST['saveName'], " ") !== false){
-  echo '<script> alert("Veuillez rentrer une valeur dans le nom de la sauvegarde (sans espaces)"); </script>';
-}else if ($_POST['submit']){
-	shell_exec('echo Y | sudo /var/www/minecraft/commandes/backup.sh save ' . $_POST['toSave'] . ' ' . $_POST['saveName']);
-}
 ?>   
 </body>
 </html>

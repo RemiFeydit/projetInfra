@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Home</title>
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAraKEAF3XCAAi/XQAcoz4AHL1UADGtawAWhzMAIet/AHeAhwAQtToAHutTAC6AQgAvzFcANpxQAEtQVAAOWZYAAzlrAAp9QABIz3cAILpoADRuowArq2cAOsJbAB/bkwAi8msAVNZ0ACvMUwA6plUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPDwAADxAADwEUFA8IFA8PDxAPDwAAAA8QAQ8QDxAPEAEQDwEAAA8UDw8QDxQUDw8PDw8PAQEPEBQPFBQBDw4AAA8QAA8QAA8PFBQBDxQQAQEPAAAIDwAADwEBDwEUDw8PDwEBAAAAABAPDxAQDw8AAA8PDxAPAA8PFA8UDxAAEAAADw8AAAEPAQEUFA8PAQ8BAQ8ADwABEA8PCA8PARAPDxAPDw8BDxAAAA8UFBAQEBcQDxQQDxQPFwEQFA8PEBAEGQ8TGQ8QEgUQBRAFEBcVEwIVAhUXFRMTFRcRFxMGGAQSEhcXFwITEQcVFwUHGRYbGxsNCw0aGhoDAwwKCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" rel="icon" type="image/x-icon" />
 </head>
 <body>
 <?php
@@ -18,6 +19,21 @@ if($_GET['run']){
 
   header('Location: ./pages/console.php');
 }
+
+if(!empty($_POST["saveBeforeChangeV"])){
+  $_POST["saveBeforeChangeV"] = true;
+}else{
+  $_POST["saveBeforeChangeV"] = false;
+}
+
+if($_POST['submit'] && $_POST["saveBeforeChangeV"]){
+	shell_exec('echo Y | sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"] . ' true');
+	echo $monDebug;
+}else if($_POST['submit'] && !$_POST["saveBeforeChangeV"]){
+  shell_exec('sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"]);
+}
+
+$version = file_get_contents('/var/www/minecraft/minecraftServer/versionActuelle.txt', FALSE);
 ?>
 <nav>
         <div class="nav-wrapper">
@@ -37,6 +53,7 @@ if($_GET['run']){
         <div class="card-content white-text">
           <form>
     <a class="waves-effect waves-light btn-large" id="btnServeur" href="?run=true"><i class="material-icons right">power</i>Démarrer le serveur</a>
+    <span> Version actuelle : <?=$version?></span>
 </form>
 <p id='etatServ'></p>
         </div>
@@ -66,7 +83,7 @@ if($_GET['run']){
     <span class="white-text">Sauvegarde du monde avant le changement de version ?</span>
   </label>
   </p><br>
-      <button class="btn waves-effect waves-light" type="submit" name="submit" value='submit'>Changer de version<i class="material-icons right">send</i>
+      <button class="btn waves-effect waves-light" id="btnChangeV" type="submit" name="submit" value='submit'>Changer de version<i class="material-icons right">send</i>
       </button>
   </form>
         </div>
@@ -81,26 +98,14 @@ $rconisOn = shell_exec('ss -tunlp | grep 25575');
 
 if($isOn != '' && $rconisOn != ''){
   echo '<script> document.getElementById("btnServeur").setAttribute("class", "waves-effect waves-light btn-large disabled")</script>';
+  echo '<script> document.getElementById("btnChangeV").setAttribute("class", "btn waves-effect waves-light disabled")</script>';
   echo '<script> document.getElementById("etatServ").innerText = "Le serveur est démarré"</script>';
 }else if($isOn != '' && $rconisOn == ''){
   echo '<script> document.getElementById("btnServeur").setAttribute("class", "waves-effect waves-light btn-large disabled")</script>';
+  echo '<script> document.getElementById("btnChangeV").setAttribute("class", "btn waves-effect waves-light disabled")</script>';
   echo '<script> document.getElementById("etatServ").innerText = "Le serveur est en cours de démarrage"</script>';
 }else{
   echo '<script> document.getElementById("etatServ").innerText = "Le serveur est éteint"</script>';
-}
-
-
-if(!empty($_POST["saveBeforeChangeV"])){
-  $_POST["saveBeforeChangeV"] = true;
-}else{
-  $_POST["saveBeforeChangeV"] = false;
-}
-
-if($_POST['submit'] && $_POST["saveBeforeChangeV"]){
-	shell_exec('echo Y | sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"] . ' true');
-	echo $monDebug;
-}else if($_POST['submit'] && !$_POST["saveBeforeChangeV"]){
-  shell_exec('sudo /var/www/minecraft/commandes/changeVersion.sh '. $_POST["version"]);
 }
 
 ?>
