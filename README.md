@@ -10,26 +10,28 @@ Nous pouvons donc via la page web :
 * Changer les propriétés du serveur (nom du monde, max de joueur, difficulté ...)
 * Faire facilement des backup du monde et du serveur.properties
 
-Toutes les interaction faites depuis la page web sont en fait le lancement de commandes Bash. Il est d'ailleur possible de gérer simplement le serveur directement via le terminal grâce à des scripts bash.  
+Toutes les interactions faites depuis la page web sont en fait le lancement de commandes Bash. Il est d'ailleurs possible de gérer simplement le serveur directement via le terminal grâce à des scripts bash.  
 
 En bonus, nous aurions aimé créer notre propre serveur git avec déploiement automatique.
 
 ## Installation 
+
+Si vous utilisez une machine virtuelle pour émuler un environnement Ubuntu, il vous faudra un connexion host-only, sinon vous ne pourez pas vous connectez sur le serveur ou la page web.
 
 Clonez ce repository dans le dossier de votre choix.  
   
 Déplacez vous ensuite dans le dossier : `cd projetInfra`.  
 
 Nous avons créer un script `run.sh` pour tout installer automatiquement.  
-Il faut d'abord lui donner les droits necessaire : `chmod +xwr run.sh`.  
+Il faut d'abord lui donner les droits nécessaires : `chmod +xwr run.sh`.  
 Vous devez maintenant l'exécuter en sudo : `sudo ./run.sh`.  
 
 L'installation va prendre un petit moment. Il est normal de voir des erreurs comme une erreur sur le fichier eula.
 Une fois que le script a fini de s'exécuter, l'installation est terminé.
 
-Tous les fichiers nécessaire ce trouvent dans `/var/www/minecraft`.
+Tous les fichiers nécessaires se trouvent dans `/var/www/minecraft`.
 
-Concernant le git, nous n'avons pas réussis à le finir.
+Concernant le git, nous n'avons pas réussi à le finir.
 
 ## Utilisation du projet
 
@@ -37,22 +39,22 @@ Ouvrez votre navigateur à l'adresse localhost si vous lancez la page web depuis
 Vous allez atterir à l'accueil permettant de lancer le serveur ou de changer de version.  
 Cliquez sur lancer le serveur, cela va vous rediriger vers une autre page contenant la console minecraft. Il faut attendre un petit moment pour que la console soit fonctionnelle, le temps que le serveur minecraft se soit bien lancé.  
   
-Maintenant que le serveur minecraft est lancé vous pouvez sur votre client lancer minecraft (vérifiez que vous avez bien la même version que celle du serveur).
-Dans multijoueur, faites ajouter un serveur. Vous devez rentrer l'adresse ip de votre serveur (`ip a` pour la connaître) suivit de `:25565`. Cela peut par exemple donner `192.168.22.4:25565`.  
+Maintenant que le serveur minecraft est lancé, vous pouvez sur votre client lancer minecraft (vérifiez que vous avez bien la même version que celle du serveur).
+Dans multijoueur, faites ajouter un serveur. Vous devez rentrer l'adresse ip de votre serveur (`ip a` pour la connaître) suivi de `:25565`. Cela peut par exemple donner `192.168.22.4:25565`.  
 
-Il n'y a plus qu'à vous connecter et voila !
+Il n'y a plus qu'à vous connecter et voilà !
 
-Pensez avant de changer de version, le serveur.properties ou de faire une backup à d'abord éteindre le serveur.  
+Pensez avant de changer de version, de changer le serveur.properties ou de faire une backup à d'abord éteindre le serveur.  
 
-Pour les restauration, vous ne pouvez bien entendu restorer que les backup de la même version que votre serveur.  
+Pour les restaurations, vous ne pouvez bien entendu restaurer que les backup de la même version que votre serveur.  
 
-Pour les version, seul les version écrite dans le fichier `/var/www/minecraft/commandes/listeVersion.txt` sont disponible. Pour en rajouter rajouter une ligne sous le format version:lienTelechargement par exemple `1.15.1:lienTelechargement`. Notez que les liens de téléchargement de version doivent provenir de https://mcversions.net/ pour assurer un fonctionnement optimal. Veillez à bien mettre une voersion par ligne.
+Pour les versions, seul les versions écrites dans le fichier `/var/www/minecraft/commandes/listeVersion.txt` sont disponibles. Pour en rajouter, rajouter une ligne sous le format version:lienTelechargement par exemple `1.15.1:lienTelechargement`. Notez que les liens de téléchargement de version doivent provenir de https://mcversions.net/ pour assurer un fonctionnement optimal. Veillez à bien mettre une version par ligne.
 
-Si vous préférez des lignes de commandes, vous pouvez exécuter les script en sudo dans `/var/www/minecrft/commandes`:
+Si vous préférez des lignes de commandes, vous pouvez exécuter les script en sudo dans `/var/www/minecraft/commandes`:
 
 * Démarrer le serveur : `sudo ./start.sh`.
 * Changez les propriétés : `sudo ./changeProperties.sh nomDeLaPropriete nouvelleValeur` par exemple `sudo ./changeProperties.sh max-players 16`.
-* Changer de version : `sudo changeVersion.sh version` par exempke `sudo changeVersion.sh 1.15.1`. Vous pouvez rajouter `true` si vous voulez save le world et server.properties avant de changer de version : `sudo changeVersion.sh 1.15.1 true`.
+* Changer de version : `sudo changeVersion.sh version` par exemple `sudo changeVersion.sh 1.15.1`. Vous pouvez rajouter `true` si vous voulez save le world et server.properties avant de changer de version : `sudo changeVersion.sh 1.15.1 true`.
 * gestion Backup :
     * Faire une backup : 
         * Backup du world : `sudo ./backup.sh save world nomDeLaBackup`.
